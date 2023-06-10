@@ -7,16 +7,23 @@ router.use(express.json());
 router.post("/createCharacter", async (req, res) => {
   // Create a new user
   const test = await characters.create({
-    accountID: req.body.accountID,
+    accountID: req.user.id,
     class: req.body.class,
     hardcore: req.body.hardcore,
     createdAt: new Date(),
     updatedAt: new Date(),
   });
-  console.log("Justin's auto-generated ID:", test.id);
   res.render("./user/user.ejs", {
     characters: test,
   });
+});
+
+router.get("/createCharacter", async (req, res) => {
+  if(!req.user)
+  {
+    res.redirect("/login");
+  }
+  res.render("./characters/createCharacter.ejs")
 });
 
 router.get("/:userId/", async (req, res) => {
