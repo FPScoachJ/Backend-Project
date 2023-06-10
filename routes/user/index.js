@@ -23,7 +23,11 @@ router.post("/createUser", async (req, res) => {
   });
 });
 
-router.delete("/:id", async (req, res) => {
+router.get("/createUser", async (req, res) => {
+  res.render("./user/createUser.ejs");
+});
+
+router.post("/:id", async (req, res) => {
   const userID = parseInt(req.params.id);
 
   try {
@@ -42,4 +46,9 @@ router.delete("/:id", async (req, res) => {
       .json({ error: "An error occurred while deleting the user" });
   }
 });
+
+router.get("/:id", async (req, res) => {
+  res.render("./user/deleteUser.ejs");
+});
+
 module.exports = router;

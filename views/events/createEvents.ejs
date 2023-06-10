@@ -1,0 +1,20 @@
+<form action="/events/createEvents" method="post">
+    <div>
+        <label for="userID">User ID</label>
+        <input id="userID" name="userID" type="text" autocomplete="User ID" required />
+    </div>
+    <div>
+        <label for="charID">CharID</label>
+        <input id="charID" name="charID" type="text" autocomplete="Char ID" required />
+    </div>
+    <div>
+        Hardcore: 
+        <input type="radio" id="true" name="hardcore" value="True">
+        <label for="true">True</label><br>
+        <input type="radio" id="false" name="hardcore" value="False">
+        <label for="false">False</label><br>
+    </div>
+    <div>
+        <button type="submit">Create Event</button>
+    </div>
+</form> 

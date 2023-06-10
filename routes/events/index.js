@@ -4,7 +4,7 @@ const ejs = require("ejs");
 const { events,characters } = require("../../models");
 router.use(express.json());
 
-router.post("/createEvent", async (req, res) => {
+router.post("/createEvents", async (req, res) => {
   // Create a new user
   const test = await events.create({
     userId: req.body.userID,
@@ -13,10 +13,13 @@ router.post("/createEvent", async (req, res) => {
     createdAt: new Date(),
     updatedAt: new Date(),
   });
-  console.log("Justin's auto-generated ID:", test.id);
   res.render("./user/user.ejs", {
     events: test,
   });
+});
+
+router.get("/createEvents", async (req, res) => {
+  res.render("./events/createEvents.ejs");
 });
 
 router.put("/events/:id", async (req, res) => {
