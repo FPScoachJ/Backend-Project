@@ -7,7 +7,8 @@
   <body>
     <%- include("../partials/nav.ejs") %>
     <h1>Events</h1>
-    <table>
+    <div class="table-container">
+    <table class="table">
       <tr>
         <th>ID</th>
         <th>Hardcore</th>
@@ -23,6 +24,7 @@
         </tr>
       <% }) %>
     </table>
+    </div>
     <a href="http://localhost:3001/events/createEvents" class="btn">Create Event</a>
   </body>
 </html>

@@ -8,7 +8,6 @@ const { events,characters } = require("../../models/");
 router.use(express.json());
 
 router.post("/createEvents", async (req, res) => {
-  // Create a new user
   const test = await events.create({
     userId: req.body.userID,
     charID: req.body.charID,
@@ -19,6 +18,7 @@ router.post("/createEvents", async (req, res) => {
   res.render("./user/user.ejs", {
     events: test,
   });
+   
 });
 
 router.get("/createEvents", async (req, res) => {

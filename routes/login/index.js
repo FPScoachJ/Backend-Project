@@ -15,7 +15,7 @@ router.post(
     //failureMessage: true,
   }),
   function (req, res) {
-    res.redirect("/~" + req.user.email);
+    res.redirect("/characters");
   }
 );
 

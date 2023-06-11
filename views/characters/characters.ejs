@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character List</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <%- include("../partials/nav.ejs") %>
+    <h1>Character List</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Account ID</th>
+            <th>Class</th>
+            <th>Hardcore</th>
+        </tr>
+        <% userCharacterData.forEach(function(character) { %>
+        <tr>
+            <td><%= character.id %></td>
+            <td><%= character.accountID %></td>
+            <td><%= character.class %></td>
+            <td><%= character.hardcore %></td>
+        </tr>
+        <% }); %>
+    </table>
+</body>
+</html>

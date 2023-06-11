@@ -63,4 +63,19 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    console.log(req.user);
+    const userCharacterData = await characters.findAll({
+      where: {
+        accountID: req.user.id,
+      },
+    }); 
+    res.render("./characters/characters", { userCharacterData });
+  } catch (error) {
+    console.error("Error executing query", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
