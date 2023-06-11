@@ -1,17 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const ejs = require("ejs");
-// Import the Pool from 'pg'
-const { Pool } = require('pg');
-
-// Configure Elephant SQL connection
-const pool = new Pool({
-  connectionString:
-    "postgres://ftnletab:wYDUaUQ5SRjhoz4eYyZdxbdefA77sFnY@mahmud.db.elephantsql.com/ftnletab",
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
 
 
 const { events,characters } = require("../../models");
@@ -59,17 +48,6 @@ router.put("/events/:id", async (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
-  pool.query("SELECT * FROM events", (error, results) => {
-    if (error) {
-      console.error("Error executing query", error);
-      res.status(500).send("Internal Server Error");
-    } else {
-      const events = results.rows;
-      res.render("events", { events });
-    }
-  });
-});
 
 router.delete("/:id", async (req, res) => {
   const eventID = parseInt(req.params.id);

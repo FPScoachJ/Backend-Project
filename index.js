@@ -11,15 +11,6 @@ const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const db = require("./models");
-const { Pool } = require("pg");
-
-const pool = new Pool({
-  connectionString:
-    "postgres://ftnletab:wYDUaUQ5SRjhoz4eYyZdxbdefA77sFnY@mahmud.db.elephantsql.com/ftnletab",
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
 
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
   const users = await db.user.findAll({
