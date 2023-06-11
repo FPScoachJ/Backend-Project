@@ -2,8 +2,10 @@
 <html>
   <head>
     <title>Events</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
   </head>
   <body>
+    <%- include("../partials/nav.ejs") %>
     <h1>Events</h1>
     <table>
       <tr>
@@ -12,7 +14,7 @@
         <th>CharID</th>
         <th>UserID</th>
       </tr>
-      <% events.forEach(event => { %>
+      <% eventdata.forEach(event => { %>
         <tr>
           <td><%= event.id %></td>
           <td><%= event.hardcore %></td>
@@ -21,5 +23,6 @@
         </tr>
       <% }) %>
     </table>
+    <a href="http://localhost:3001/events/createEvents" class="btn">Create Event</a>
   </body>
 </html>
