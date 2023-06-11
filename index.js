@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const PORT = 3001;
+const path = require("path");
 const characters = require("./routes/characters");
 const user = require("./routes/user");
 const login = require("./routes/login");
@@ -10,6 +11,15 @@ const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const db = require("./models");
+const { Pool } = require("pg");
+
+const pool = new Pool({
+  connectionString:
+    "postgres://ftnletab:wYDUaUQ5SRjhoz4eYyZdxbdefA77sFnY@mahmud.db.elephantsql.com/ftnletab",
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
   const users = await db.user.findAll({
@@ -41,11 +51,12 @@ passport.deserializeUser(async function (userID, done) {
   done(null, user);
 });
 
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 // Serve static files from the 'public' folder
 app.use(express.static('public'));
+app.use(express.static("/views/partials"));
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(
   require("express-session")({

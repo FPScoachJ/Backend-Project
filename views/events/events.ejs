@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Events</title>
+  </head>
+  <body>
+    <h1>Events</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Hardcore</th>
+        <th>CharID</th>
+        <th>UserID</th>
+      </tr>
+      <% events.forEach(event => { %>
+        <tr>
+          <td><%= event.id %></td>
+          <td><%= event.hardcore %></td>
+          <td><%= event.charID %></td>
+          <td><%= event.userId %></td>
+        </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>
