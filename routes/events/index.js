@@ -3,7 +3,8 @@ const router = express.Router();
 const ejs = require("ejs");
 
 
-const { events,characters } = require("../../models");
+const { events,characters } = require("../../models/");
+
 router.use(express.json());
 
 router.post("/createEvents", async (req, res) => {
@@ -48,6 +49,15 @@ router.put("/events/:id", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const eventdata = await events.findAll();
+    res.render("./events/events", { eventdata });
+  } catch (error) {
+    console.error("Error executing query", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 router.delete("/:id", async (req, res) => {
   const eventID = parseInt(req.params.id);
