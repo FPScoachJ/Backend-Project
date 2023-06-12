@@ -64,6 +64,10 @@ router.put("/events/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  if (!req.user) {
+    res.redirect("/login");
+    return;
+  }
   try {
     const eventdata = await events.findAll({ include: [characters, user] });
     res.render("./events/events", { eventdata });
