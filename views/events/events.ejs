@@ -12,19 +12,20 @@
       <tr>
         <th>ID</th>
         <th>Hardcore</th>
-        <th>CharID</th>
-        <th>UserID</th>
+        <th>Character Class</th>
+        <th>Name</th>
       </tr>
       <% eventdata.forEach(event => { %>
         <tr>
           <td><%= event.id %></td>
           <td><%= event.hardcore %></td>
-          <td><%= event.charID %></td>
-          <td><%= event.userId %></td>
+          <td><%= event.character.class %></td>
+          <td><%= event.user.name %></td>
         </tr>
       <% }) %>
     </table>
     </div>
-    <a href="http://localhost:3001/events/createEvents" class="btn">Create Event</a>
+    <a href="/events/createEvents" class="btn">Create Event</a>
+    <a href="/events/deleteEvents" class="btn">Delete Event</a>
   </body>
 </html>

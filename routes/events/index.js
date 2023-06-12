@@ -2,27 +2,41 @@ const express = require("express");
 const router = express.Router();
 const ejs = require("ejs");
 
-
-const { events,characters } = require("../../models/");
+const { events, characters, user } = require("../../models/");
 
 router.use(express.json());
 
 router.post("/createEvents", async (req, res) => {
+  if (!req.user) {
+    res.redirect("/login");
+    return;
+  }
+  const userID = req.user.id;
+
   const test = await events.create({
-    userId: req.body.userID,
+    userId: userID,
     charID: req.body.charID,
     hardcore: req.body.hardcore,
     createdAt: new Date(),
     updatedAt: new Date(),
   });
-  res.render("./user/user.ejs", {
-    events: test,
-  });
-   
+  res.redirect("/events");
 });
 
 router.get("/createEvents", async (req, res) => {
-  res.render("./events/createEvents.ejs");
+  if (!req.user) {
+    res.redirect("/login");
+    return;
+  }
+  const userID = req.user.id;
+
+  const userCharacters = await characters.findAll({
+    where: {
+      accountID: userID
+    }
+  });
+
+  res.render("./events/createEvents.ejs", { userCharacters });
 });
 
 router.put("/events/:id", async (req, res) => {
@@ -36,13 +50,13 @@ router.put("/events/:id", async (req, res) => {
     if (!event) {
       return res.status(404).json({ error: "Event not found" });
     }
-    event.set({ ...event, hardcore:char.hardcore,charId:char.id });
-    // Update the event attributes  
+    event.set({ ...event, hardcore: char.hardcore, charId: char.id });
+    // Update the event attributes
     await event.save();
 
     res.json(event);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     res
       .status(500)
       .json({ error: "An error occurred while updating the event" });
@@ -51,7 +65,7 @@ router.put("/events/:id", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const eventdata = await events.findAll();
+    const eventdata = await events.findAll({ include: [characters, user] });
     res.render("./events/events", { eventdata });
   } catch (error) {
     console.error("Error executing query", error);
@@ -59,19 +73,19 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
   const eventID = parseInt(req.params.id);
 
   try {
     const deletedEvent = await events.destroy({
-      where: { id: eventID },
+      where: { id: req.body.eventID },
     });
 
     if (deletedEvent === 0) {
-      return res.status(404).json({ error: "Post not found" });
+      return res.status(404).json({ error: "Event not found" });
     }
 
-    res.json({ message: "Event deleted successfully" });
+    res.redirect("/events");
   } catch (error) {
     res
       .status(500)
@@ -79,5 +93,8 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.get("/deleteEvents", async (req, res) => {
+  res.render("./events/deleteEvents.ejs");
+});
 
 module.exports = router;

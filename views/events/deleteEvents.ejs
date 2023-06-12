@@ -1,0 +1,19 @@
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<%- include("../partials/nav.ejs") %>
+<form action="/events/deleteEvents" method="post">
+    <div>
+        <label for="id">Event ID</label>
+        <input id="eventID" name="eventID" type="text" autocomplete="name" required />
+    </div>
+    <!-- <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="text" autocomplete="email" required />
+    </div>
+  <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="text" autocomplete="password" required />
+    </div> -->
+    <div>
+        <button type="submit">Delete ID</button>
+    </div>
+</form> 

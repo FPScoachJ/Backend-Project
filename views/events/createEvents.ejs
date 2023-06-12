@@ -1,13 +1,18 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
 <%- include("../partials/nav.ejs") %>
 <form action="/events/createEvents" method="post">
-    <div>
+    <!--<div>
         <label for="userID">User ID</label>
         <input id="userID" name="userID" type="text" autocomplete="User ID" required />
-    </div>
+    </div>-->
     <div>
         <label for="charID">CharID</label>
-        <input id="charID" name="charID" type="text" autocomplete="Char ID" required />
+        <select id="charID" name="charID">
+            <% userCharacters.forEach(character => { %>
+            <option value="<%= character.id %>"><%= character.class %></option>
+            <% }) %>
+        </select>
+        
     </div>
     <div>
         Hardcore: 

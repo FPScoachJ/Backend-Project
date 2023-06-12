@@ -99,3 +99,9 @@ footer {
     color: #333;
     margin: 20px 0;
   }
+  main {
+  background-image: url("https://i.guim.co.uk/img/media/d6f9328516375ad80199c91c31d02d2413852dea/0_347_12000_7200/master/12000.jpg?width=620&quality=85&dpr=1&s=none");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 40vh;
+}

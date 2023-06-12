@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       characters.hasMany(models.events, { foreignKey: "charID" });
-      characters.belongsTo(models.user, {foreignKey: "accountID"})
+      characters.belongsTo(models.user, {foreignKey: "accountID", onDelete: "cascade"})
     }
   }
   characters.init({

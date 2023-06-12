@@ -6,6 +6,7 @@ const characters = require("./routes/characters");
 const user = require("./routes/user");
 const login = require("./routes/login");
 const events = require("./routes/events");
+const guest = require("./routes/guest");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
@@ -66,6 +67,7 @@ app.use("/characters", characters);
 app.use("/user", user);
 app.use("/events", events);
 app.use("/login", login);
+app.use("/guest", guest);
 app.listen(PORT, console.log(`listening on port ${PORT}`));
 app.get("/", (req, res) => {
   const message = "Wanna play?";

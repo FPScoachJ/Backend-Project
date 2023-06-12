@@ -13,17 +13,15 @@ router.post("/createCharacter", async (req, res) => {
     createdAt: new Date(),
     updatedAt: new Date(),
   });
-  res.render("./user/user.ejs", {
-    characters: test,
-  });
+  res.redirect("/characters");
 });
 
 router.get("/createCharacter", async (req, res) => {
-  if(!req.user)
-  {
+  if (!req.user) {
     res.redirect("/login");
+    return;
   }
-  res.render("./characters/createCharacter.ejs")
+  res.render("./characters/createCharacter.ejs");
 });
 
 router.get("/:userId/", async (req, res) => {
@@ -64,13 +62,17 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  if (!req.user) {
+    res.redirect("/login");
+    return;
+  }
   try {
     console.log(req.user);
     const userCharacterData = await characters.findAll({
       where: {
         accountID: req.user.id,
       },
-    }); 
+    });
     res.render("./characters/characters", { userCharacterData });
   } catch (error) {
     console.error("Error executing query", error);
