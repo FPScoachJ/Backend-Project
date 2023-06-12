@@ -54,6 +54,7 @@ router.post("/deleteUser", async (req, res) => {
   }
 });
 
+
 router.get("/updateUser/", async (req, res) => {
   if (!req.user) {
     res.redirect("/login");
